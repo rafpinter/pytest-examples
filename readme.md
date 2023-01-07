@@ -1,6 +1,15 @@
 # Pytest
 
-Todo teste é formado por 3 etapas:
+*pytest: helps you write better programs.*  
+*The pytest framework makes it easy to write small, readable tests, and can scale to support complex functional testing for applications and libraries.*
+
+Aqui temos algumas anotações (extremamente resumidas) das aulas incríveis de pytest do canal do [dunossauro](https://github.com/dunossauro). Se quiser realmente aprender, recomendo os vídeos:
+- [Pytest: Uma introdução - Live de Python #167](https://www.youtube.com/watch?v=MjQCvJmc31A)
+- [Pytest Fixtures - Live de Python #168](https://www.youtube.com/watch?v=sidi9Z_IkLU)
+
+---
+
+Os testes são formados por 3 etapas:
 
 GWT:
 - Given: dado
@@ -23,6 +32,7 @@ Recomenda-se começar a função de teste ao contrário:
 1. Escreve o `assert x == y`
 2. Escreve os demais passos da função de teste até chegar no assert
 3. Dá o nome para a função de teste
+
 
 ## Virtualenv
 
