@@ -19,6 +19,10 @@ Resumo dos feedbacks:
 - X: Falha esperada, mas não falhou
 - s: Pulou (skipped)
 
+Recomenda-se começar a função de teste ao contrário:
+1. Escreve o `assert x == y`
+2. Escreve os demais passos da função de teste até chegar no assert
+3. Dá o nome para a função de teste
 
 ## Virtualenv
 
@@ -27,6 +31,8 @@ Resumo dos feedbacks:
 Ativando virtualenv:
 
 `conda activate pytest-py310`
+
+Se não funcionar de primeira, desativar todos os condas e ativar novamente.
 
 
 ## Install:  
@@ -73,6 +79,8 @@ def test_testa_algo():
 ```
 onde `tag_name` é o nome da tag.
 
+Então, na hora de executar os testes, podemos executar somente os testes de uma determinada tag: `pytest -m tag_name`.
+
 ### XFAIL
 
 Podemos deixar uma marcação de teste que irá falhar e sabemos disso. Por exemplo, o código irá falhar quando for executado em windows, e tá tudo bem:
@@ -100,7 +108,7 @@ def test_pode_pular_no_mac():
 ## FIXTURES
 
 Fixture é basicamente uma maneira de "entrar" em um contexto. Ou prover uma ferramenta que precisa de sexecutada "antes" dos testes.
-Fixture também é um jeito de não se repetir código.
+Fixture também é um jeito de não se repetir código. É usual deixar as fixtures em um arquivo `conftest.py` dentro do diretório `tests/`.
 
 ```python
 @fixture(scope='function')
@@ -127,6 +135,24 @@ def test_nao_deve_existir_nenhuma_coluna_no_quadro(quadro):
     assert quantidade_de_colunas == 0
 ```
 
+### "Herança" de fixtures
+Uma fixture pode chamar outra para ser executada antes de si. Basta chamar a primeira no argumento da função da fixture em questão:
+
+```python
+@fixture(scope='function')
+def quadro():
+    yield Quadro() # Fixture
+
+@fixture
+def quadro_com_coluna(quadro):
+    quadro.inserir_coluna(Coluna(fake.pystr()))
+    return quadro
+
+@fixture
+def quadro_com_colunas(quadro_com_coluna):
+    quadro_com_coluna.inserir_coluna(Coluna(fake.pystr()))
+    return quadro_com_coluna
+```
 
 
 ### Parâmetros para fixture
