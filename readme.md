@@ -100,12 +100,56 @@ def test_pode_pular_no_mac():
 ## FIXTURES
 
 Fixture é basicamente uma maneira de "entrar" em um contexto. Ou prover uma ferramenta que precisa de sexecutada "antes" dos testes.
+Fixture também é um jeito de não se repetir código.
+
+```python
+@fixture(scope='function')
+def quadro():
+    return Quadro() # Fixture
+
+def test_nao_deve_existir_nenhuma_coluna_no_quadro(quadro):
+    quantidade_de_colunas = len(quadro.colunas)
+    assert quantidade_de_colunas == 0
+```
+Passamos o nome da fixture no argumento da função de teste.
+
+
+Quando utilizamos o `yield`, podemos ter uma parte de código executada depois da função de teste também:
+```python
+@fixture(scope='function')
+def quadro():
+    print('executado antes da função de teste')
+    yield Quadro() # Fixture
+    print('executado depois da função de teste')
+
+def test_nao_deve_existir_nenhuma_coluna_no_quadro(quadro):
+    quantidade_de_colunas = len(quadro.colunas)
+    assert quantidade_de_colunas == 0
+```
+
+
+
+### Parâmetros para fixture
+Podemos passar parametros para fixtures utilizando o `indirect=True`.
 
 ```python
 @fixture
-def flask_app():
-    create_app()
+def quadro_parametrizado(request):
+    breakpoint()
+    return Quadro()
+
+@mark.parametrize(
+    'quadro_parametrizado',
+    [
+        [1]
+    ],
+    indirect=True # quando True, parametro é passado para fixture
+)
+def test_passando_parametros_para_fixture(quadro_parametrizado):
+    ...
 ```
+
+Neste caso, `quadro_parametrizado(request)` recebe o valor `request = [1]`
 
 
 ## Relatório XML
@@ -124,7 +168,7 @@ Learning Pytest
 
 
 live debugger: 85
-
+ 
 
 xUnit Patterns - Gerard Mezaros
 Um teste é composto por 4 passos:
