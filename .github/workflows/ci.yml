@@ -9,15 +9,11 @@ jobs:
       - name: Action Checkout
         uses: actions/checkout@v2
 
-      - name: Instala o Python 3.9
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.10
-      
+
       - name: Instala o conda
         uses: conda-incubator/setup-miniconda@v2
         with:
-          python-version: "3.9"
+          python-version: "3.10"
           auto-activate-base: true
           activate-environment: ""
     
