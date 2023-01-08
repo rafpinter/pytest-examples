@@ -1,8 +1,8 @@
 def brincadeira(numero):
-    print('entrei na brincadeira')
+    print("entrei na brincadeira")
     if numero < 3:
         return numero
     if numero == 3:
-        return 'queijo'
+        return "queijo"
     if numero > 4:
-        return 'goiabada'
+        return "goiabada"
