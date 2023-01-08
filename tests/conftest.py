@@ -25,7 +25,7 @@ class QuadroFactory(factory.Factory):
 
 @fixture
 def quadro_parametrizado(request):
-    breakpoint()
+    # breakpoint()
     return Quadro()
 
 
