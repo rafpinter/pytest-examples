@@ -3,7 +3,7 @@ name: Integração Contínua
 on: push
 
 jobs:
-  executa_testes:
+  executa_black:
     runs-on: ubuntu-latest
     steps: 
       - name: Action Checkout
@@ -26,6 +26,20 @@ jobs:
         run: black --check app
         continue-on-error: true
 
+  executa_pytest:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Action Checkout
+        uses: actions/checkout@v2
+
+      - name: Instala o Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.8
+          cache: pip
+          
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       - name: Executa o pytest
         run: pytest
