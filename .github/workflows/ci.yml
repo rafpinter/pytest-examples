@@ -20,11 +20,9 @@ jobs:
       
       - name: Executa o black na src
         run: black --check src
-        continue-on-error: true
       
       - name: Executa o black na app
         run: black --check app
-        continue-on-error: true
 
   executa_pytest:
     runs-on: ubuntu-latest
@@ -43,4 +41,3 @@ jobs:
 
       - name: Executa o pytest
         run: pytest
-        continue-on-error: true
